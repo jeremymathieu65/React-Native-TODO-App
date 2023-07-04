@@ -1,4 +1,5 @@
 import React from 'react'
+import {Button, View, Text, Image, StyleSheet} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
@@ -9,17 +10,11 @@ const Tabs = createBottomTabNavigator()
 function Welcome() {
   return (
     <Tabs.Navigator screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: 'black',
-        tabBarStyle: {
-            boxSizing: 'border-box',
-            height: 100
-        },
-        tabBarLabelStyle: {
-            marginBottom: 5
-        },
-        tabBarIconStyle: {
-            marginTop: 5
-        }
+        tabBarStyle: styles.tabBar,
+        tabBarLabelStyle: styles.tabBarLabel,
+        tabBarIconStyle: styles.tabBarIcon
     }}>
         <Tabs.Screen name="Login" component={LoginScreen} options={{
             tabBarIcon: ({color, size}) => (<AntDesign name="login" size={size} color={color} />)
@@ -30,5 +25,18 @@ function Welcome() {
     </Tabs.Navigator>
   )
 }
+
+const styles = StyleSheet.create({
+    tabBar: {
+        boxSizing: 'border-box',
+        height: 70
+    },
+    tabBarLabel: {
+        marginBottom: 5
+    },
+    tabBarIcon: {
+        marginTop: 5
+    }
+})
 
 export default Welcome
