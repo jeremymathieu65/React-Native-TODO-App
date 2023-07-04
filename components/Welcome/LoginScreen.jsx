@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {Button, View, Text, Image, StyleSheet, TextInput, ScrollView, Pressable} from 'react-native';
 import { useUserContext } from '../../contexts/UserContext';
-import {LoginStyles as styles} from '../../styles/styles'
+import {styles} from '../../styles/styles'
 
 function LoginScreen() {
     const { authenticateUser } = useUserContext()

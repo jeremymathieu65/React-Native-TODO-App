@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { UserContextProvider, useUserContext } from './contexts/UserContext';
-import Welcome from './components/Welcome';
+import Home from './components/Home';
 import {useFonts, Poppins_400Regular, Poppins_100Thin} from '@expo-google-fonts/poppins'
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <UserContextProvider>
-        <Welcome />
+        <Home />
       </UserContextProvider>
     </NavigationContainer>
   );
