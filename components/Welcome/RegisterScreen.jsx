@@ -1,8 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Button, View, Text, Image, StyleSheet, TextInput, ScrollView, Pressable} from 'react-native';
-import { addNewUser } from '../../contexts/UserContext';
+import {Button, View, Text, TextInput, Pressable, ToastAndroid} from 'react-native';
+import { useUserContext } from '../../contexts/UserContext';
+import {LoginStyles as styles} from '../../styles/styles'
+import { useNavigation } from '@react-navigation/core';
 
 function RegisterScreen() {
+    const { addNewUser } = useUserContext()
     const [userInput, setUserInput] = useState({
         name: "",
         email: "",
@@ -10,6 +13,7 @@ function RegisterScreen() {
         cnfrmPasswd: ""
     })
     const [error, setError] = useState("")
+    const nav = useNavigation()
 
     function handleFormDataChange(newVal, key) {
         var currentInput = userInput
@@ -30,8 +34,14 @@ function RegisterScreen() {
         if (formFilled) {
             if (verifyEmail()) {
                 if (verifyPasswd()) {
-                    //TODO SUCCESS
-                    addNewUser(userInput)
+                    var resp = addNewUser(userInput)
+                    if (resp.status === 200) {
+                        ToastAndroid.show("Registered Successfully!", ToastAndroid.SHORT)
+                        nav.navigate("Login")
+                    }
+                    else {
+                        setError(resp.message)
+                    }
                 }
                 else {
                     setError("Please enter matching passwords") 
@@ -48,7 +58,7 @@ function RegisterScreen() {
     }
 
     function verifyEmail() {
-        if (userInput.email.includes("@")) { return true }
+        if (userInput.email.includes("@") && userInput.email.includes(".")) { return true }
         else { return false }
     }
 
@@ -95,84 +105,5 @@ function RegisterScreen() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({  
-    screenContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    formContainer: {
-        borderColor: 'black',
-        borderWidth: 5,
-        borderStyle: 'solid',
-        borderRadius: 10,
-        width: '80%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        rowGap: 15,
-        padding: 15,
-    },
-    screenHeader: {
-        fontFamily: 'Poppins_400Regular',
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 10
-    },
-    formInputGroup: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        rowGap: 10,
-    },
-    formInputLabel: {
-        fontFamily: 'Poppins_100Thin',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    formInput: {
-        fontFamily: 'Poppins_400Regular',
-        fontSize: 14,
-        fontWeight: 'normal',
-        width: '100%',
-        backgroundColor: 'whitesmoke',
-        borderRadius: 10,
-        padding: 5,
-        paddingLeft: 10,
-    },
-    formSubmitButton: {
-        backgroundColor: 'black',
-        borderRadius: 10,
-        padding: 10,
-        width: '50%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    formButtonText: {
-        fontFamily: 'Poppins_400Regular',
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    errorContainer: {
-        width: '80%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 15,
-        marginTop: 15,
-        borderColor: 'red',
-        borderWidth: 2,
-        borderStyle: 'solid',
-        borderRadius: 10,
-        backgroundColor: 'rgba(200, 0, 0, 0.5);' 
-    },
-    errorMessage: {
-        fontFamily: 'Poppins_400Regular',
-        fontWeight: 'bold',
-        fontSize: 14,
-        color: 'maroon',
-    }
-
-})
 
 export default RegisterScreen
