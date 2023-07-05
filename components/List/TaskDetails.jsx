@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Button, View, Text, TextInput, Pressable, ToastAndroid} from 'react-native';
+import {Button, View, Text, TextInput, Pressable, ToastAndroid, ScrollView} from 'react-native';
 import { useUserContext } from '../../contexts/UserContext';
 import {styles} from '../../styles/styles'
 import { createStackNavigator } from '@react-navigation/stack';

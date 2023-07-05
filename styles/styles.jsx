@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'normal',
         width: '100%',
-        backgroundColor: 'whitesmoke',
+        backgroundColor: '#F5F5F5',
         borderRadius: 10,
         padding: 5,
         paddingLeft: 10,
@@ -198,7 +198,7 @@ export const ProfileStyles = StyleSheet.create({
         padding: 20,
         paddingTop: 30,
         paddingBottom: 30,
-        backgroundColor: 'whitesmoke',
+        backgroundColor: '#F5F5F5',
         borderRadius: 10
     },
     modalClosePane: {
@@ -259,7 +259,8 @@ export const ListStyles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         paddingTop: 35,
-        borderWidth: 2
+        rowGap: 15,
+        backgroundColor: 'white'
     },
     headerPane: {
         width: '100%',
@@ -269,7 +270,8 @@ export const ListStyles = StyleSheet.create({
         alignItems: 'center'
     },
     headerTextContainer: {
-        rowGap: 5
+        rowGap: 5,
+        width: '90%'
     },
     headerGreeting: {
         textAlign:  'left',
@@ -283,5 +285,146 @@ export const ListStyles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold', 
         color: 'grey'
+    },
+    toDoTasksContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        rowGap: 10,
+        padding: 10
+    },
+    toDoTasksHeader: {
+        width: '100%',
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    toDoTasksScrollWrapper: {
+        flex: 1,
+        width: '100%', 
+        rowGap: 10,
+    },
+    taskSnippetContainer: {
+        borderWidth: 2,
+        borderRadius: 10,
+        borderStyle: 'dashed',
+        padding: 10,
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    taskSnippetCompletedContainer: {
+        backgroundColor: 'green',
+        borderWidth: 0
+    },
+    taskSnippetDescContainer: {
+        flex: 9,
+        rowGap: 10,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+    },
+    taskSnippetTitle: {
+        width: '100%',
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    taskSnippetDetails: {
+        width: '100%',
+        textAlign:  'left',
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'grey'
+    },
+    taskSnippetOptionsContainer: {
+        flex: 1,
+        rowGap: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    taskMessage: {
+        width: '100%',
+        textAlign:  'left',
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 16,
+        fontWeight: 'normal',
+        color: 'grey'
+    },  
+    addModalContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',    
+    },
+    addModalWrapper: {
+        width: '80%',
+        height: 400,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        rowGap: 20,
+        padding: 20,
+        backgroundColor: 'whitesmoke',
+        borderRadius: 10
+    },
+    modalHeaderPane: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'    
+    },
+    modalHeaderText: {
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    modalFormContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        rowGap: 10,
+    },
+    modalFormInputLabel: {
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    modalFormInput: {
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 14,
+        fontWeight: 'normal',
+        width: '100%',
+        backgroundColor: '#EEEEEE',
+        borderRadius: 10,
+        padding: 5,
+        paddingLeft: 10,
+        flexShrink: 3
+    },
+    modalCnfrmContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modalCnfrmButton: {
+        width: '40%',
+        padding: 10,
+        borderWidth: 1,
+        borderColor: 'grey',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalCnfrmText: {
+        color: 'green',
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 16,
+        fontWeight: 'bold',
     }
 })

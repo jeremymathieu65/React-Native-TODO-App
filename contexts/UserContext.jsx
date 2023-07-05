@@ -12,10 +12,10 @@ function UserContextProvider({children}) {
         try {
             const usersJSON = await AsyncStorage.getItem('users');
             const loggedUserJSON = await AsyncStorage.getItem('loggedUser');
-            if (users !== null) {
+            if (usersJSON !== null) {
                 setUsers([...JSON.parse(usersJSON)])
             }
-            if (loggedUser !== null) {
+            if (loggedUserJSON !== null) {
                 setLoggedUser({...JSON.parse(loggedUserJSON)})
             }
         } catch (e) {
@@ -100,15 +100,56 @@ function UserContextProvider({children}) {
     }
     
     const addNewTask = (taskObj) => {
-        //TODO
+        var currUser = loggedUser
+        var userList = users
+        taskObj.isCompleted = false;
+        taskObj.index = currUser.list.length
+        currUser.list.push({...taskObj})
+        userList[currUser.index].list.push(taskObj)
+        setLoggedUser({...currUser})
+        setUsers([...userList])
+        ToastAndroid.show("Item added successfully!", ToastAndroid.SHORT)
+        return
     }
     
     const deleteTask = (taskId) => {
-        //TODO
+        var currUser = loggedUser
+        var userList = users
+        var taskList = currUser.list
+        if (taskId === 0) { taskList.shift() }
+        else if (taskId === taskList.length - 1) { taskList.pop() }
+        else { taskList.splice(index, index) }
+        for (let i = 0; i < taskList.length; i++) {
+            taskList[i].index = i
+        }
+        currUser.list = taskList
+        userList[currUser.index] = currUser
+        setLoggedUser({...currUser})
+        setUsers([...userList])
+        ToastAndroid.show("Item deleted successfully!", ToastAndroid.SHORT)
+        return;
     }
     
-    const modifyTask = (taskId) => {
-        //TODO
+    const modifyTask = (taskId, key, newVal) => {
+        var currUser = loggedUser
+        var userList = users
+        var taskObj = currUser.list[taskId]
+        taskObj[key] = newVal
+        currUser.list[taskId] = taskObj
+        userList[currUser.index] = currUser
+        setLoggedUser({...currUser})
+        setUsers([...userList])
+        ToastAndroid.show("Great Work!", ToastAndroid.SHORT)
+        return
+    }
+
+    const getTaskLength = () => {
+        var len = 0
+        var list = loggedUser.list
+        for (let i = 0; i < loggedUser.list.length; i++) {
+            if (!list[i].isCompleted) { len++; }
+        }
+        return len
     }
 
     const value = {
@@ -122,6 +163,7 @@ function UserContextProvider({children}) {
         addNewTask,
         deleteTask,
         modifyTask,
+        getTaskLength,
         loggedUser,
         users,
         setUsers,
