@@ -154,7 +154,7 @@ export const ProfileStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-start',
-        paddingTop: 20
+        paddingTop: 20,
     },
     profileInfoWrapper: {
         width: "80%",
@@ -231,6 +231,23 @@ export const ProfileStyles = StyleSheet.create({
     },
     modalConfirmText: {
         color: 'red',
+    },
+    aboutHeadline: {
+        width: '100%',
+        textAlign:  'center',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 24,
+        fontWeight: 'bold',      
+    },
+    aboutSocialsPane: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        columnGap: 20,
+        width: '100%',
+        padding: 10,
+        marginTop: 10
+        
     }
 
 })
