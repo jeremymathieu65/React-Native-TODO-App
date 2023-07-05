@@ -2,15 +2,15 @@ import React, {useState, useEffect, useRef} from 'react'
 import {Button, View, Text, TextInput, Pressable, ToastAndroid} from 'react-native';
 import { useUserContext } from '../../contexts/UserContext';
 import {styles} from '../../styles/styles'
-import { useNavigation } from '@react-navigation/core';
+import { createStackNavigator } from '@react-navigation/stack';
 
-function List() {
+function ListNavigator() {
 
     return (
         <View style={styles.screenContainer}>
-            <Text style={styles.screenHeader}>To-Do List</Text>
+            <Text style={styles.screenHeader}>Task Details List</Text>
         </View>
     )
 }
 
-export default List
+export default ListNavigator

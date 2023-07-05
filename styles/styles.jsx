@@ -251,3 +251,37 @@ export const ProfileStyles = StyleSheet.create({
     }
 
 })
+
+export const ListStyles = StyleSheet.create({
+    screenContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        padding: 10,
+        paddingTop: 35,
+        borderWidth: 2
+    },
+    headerPane: {
+        width: '100%',
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    headerTextContainer: {
+        rowGap: 5
+    },
+    headerGreeting: {
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 24,
+        fontWeight: 'bold', 
+    },
+    headerWelcomeMessage: {
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 14,
+        fontWeight: 'bold', 
+        color: 'grey'
+    }
+})

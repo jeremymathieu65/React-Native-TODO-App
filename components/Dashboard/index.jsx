@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, View, Text, Image, StyleSheet} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import List from './List';
+import ListNavigator from './ListNavigator';
 import AccountNavigator from './AccountNavigator';
 import { Entypo, AntDesign } from '@expo/vector-icons';
 
@@ -16,7 +16,7 @@ function Dashboard() {
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarIconStyle: styles.tabBarIcon
     }}>
-        <Tabs.Screen name="List" component={List} options={{
+        <Tabs.Screen name="ListNavigator" component={ListNavigator} options={{
             tabBarIcon: ({color, size}) => (<Entypo name="list" size={size} color={color} />),
             tabBarLabel: "To-Do List"
         }} />
