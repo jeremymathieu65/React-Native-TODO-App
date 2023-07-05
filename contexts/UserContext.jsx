@@ -77,8 +77,16 @@ function UserContextProvider({children}) {
         return {status: 200, message: 'Registered Successfully!'}
     }
     
-    const deleteUser = (email) => {
-        //TODO
+    const deleteUser = () => {
+        var userList = users
+        var index = loggedUser.index
+        if (index === 0) { userList.shift() }
+        else if (index === users.length - 1) { userList.pop() }
+        else { userList.splice(index, index) }
+        setLoggedUser({})
+        setUsers([...userList])
+        ToastAndroid.show("Account Deleted Successfully!", ToastAndroid.SHORT)
+        return;
     }
     
     const modifyUser = (newVal, key) => {

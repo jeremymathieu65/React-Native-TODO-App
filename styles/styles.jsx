@@ -183,5 +183,54 @@ export const ProfileStyles = StyleSheet.create({
         fontFamily: 'Poppins_400Regular',
         fontSize: 14,
         fontWeight: 'normal',
+    },
+    modalContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalWrapper: {
+        width: '70%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        rowGap: 20,
+        padding: 20,
+        paddingTop: 30,
+        paddingBottom: 30,
+        backgroundColor: 'whitesmoke',
+        borderRadius: 10
+    },
+    modalClosePane: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    modalText: {
+        width: '100%',
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    modalButtonsPane: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modalConfirmButton: {
+        width: '50%',
+        borderWidth: 1,
+        borderColor: 'grey',
+        borderStyle: 'solid',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+    },
+    modalConfirmText: {
+        color: 'red',
     }
+
 })
