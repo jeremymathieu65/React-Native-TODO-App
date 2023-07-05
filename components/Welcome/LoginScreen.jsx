@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Button, View, Text, Image, StyleSheet, TextInput, ScrollView, Pressable} from 'react-native';
+import {Button, View, Text, Image, StyleSheet, TextInput, ScrollView, Pressable, ToastAndroid} from 'react-native';
 import { useUserContext } from '../../contexts/UserContext';
 import {styles} from '../../styles/styles'
 
@@ -30,8 +30,8 @@ function LoginScreen() {
         if (formFilled) {
             if (verifyEmail()) {
               var resp = authenticateUser(userInput)
-              if (resp.status === 200) {
-                setError("SUCCESS")  
+              if (resp.status === 200) {  
+                ToastAndroid.show(resp.message, ToastAndroid.SHORT)
               }
               else {
                 setError(resp.message)

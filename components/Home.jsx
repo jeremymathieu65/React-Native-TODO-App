@@ -9,7 +9,7 @@ function Home() {
 
     return (
         <>
-            {(loggedUser === {}) ? <Welcome /> : <Dashboard />}
+            {(Object.keys(loggedUser).length === 0) ? <Welcome /> : <Dashboard />}
         </>
     )
 }

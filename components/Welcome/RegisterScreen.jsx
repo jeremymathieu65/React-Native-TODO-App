@@ -36,7 +36,7 @@ function RegisterScreen() {
                 if (verifyPasswd()) {
                     var resp = addNewUser(userInput)
                     if (resp.status === 200) {
-                        ToastAndroid.show("Registered Successfully!", ToastAndroid.SHORT)
+                        ToastAndroid.show(resp.message, ToastAndroid.SHORT)
                         nav.navigate("Login")
                     }
                     else {

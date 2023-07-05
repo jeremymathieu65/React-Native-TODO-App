@@ -2,7 +2,7 @@ import React from 'react'
 import {Button, View, Text, Image, StyleSheet} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import List from './List';
-import Profile from './Profile';
+import AccountNavigator from './AccountNavigator';
 import { Entypo, AntDesign } from '@expo/vector-icons';
 
 const Tabs = createBottomTabNavigator()
@@ -20,8 +20,9 @@ function Dashboard() {
             tabBarIcon: ({color, size}) => (<Entypo name="list" size={size} color={color} />),
             tabBarLabel: "To-Do List"
         }} />
-        <Tabs.Screen name="Profile" component={Profile} options={{
-            tabBarIcon: ({color, size}) => (<AntDesign name="user" size={size} color={color} />)
+        <Tabs.Screen name="AccountNavigator" component={AccountNavigator} options={{
+            tabBarIcon: ({color, size}) => (<AntDesign name="user" size={size} color={color} />),
+            tabBarLabel: 'Account'
         }} />
     </Tabs.Navigator>
   )

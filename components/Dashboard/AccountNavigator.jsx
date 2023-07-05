@@ -3,20 +3,20 @@ import {Button, View, Text, TextInput, Pressable, ToastAndroid} from 'react-nati
 import { useUserContext } from '../../contexts/UserContext';
 import {styles} from '../../styles/styles'
 import { createStackNavigator } from '@react-navigation/stack';
-import {ProfileHome, PersonalInformation, Settings} from '../Profile'
+import {AccountHome, Profile, SettingsNavigator} from '../Account'
 
 const Stack = createStackNavigator()
 
-function Profile() {
+function AccountNavigator() {
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false
         }}>
-            <Stack.Screen name="ProfileHome" component={ProfileHome} />
-            <Stack.Screen name="PersonalInformation" component={PersonalInformation}/>
-            <Stack.Screen name="Settings" component={Settings}/>
+            <Stack.Screen name="AccountHome" component={AccountHome} />
+            <Stack.Screen name="Profile" component={Profile}/>
+            <Stack.Screen name="Settings" component={SettingsNavigator}/>
         </Stack.Navigator>
     )
 }
 
-export default Profile
+export default AccountNavigator

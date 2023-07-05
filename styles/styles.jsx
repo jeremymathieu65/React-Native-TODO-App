@@ -75,5 +75,113 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
         color: 'maroon',
+    },
+    profileScreenContainer: {
+        flex: 1, 
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingTop: 30,
+        paddingBottom: 30
+    }
+})
+
+export const AccountStyles = StyleSheet.create({
+    screenContainer: {
+        flex: 1, 
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        rowGap: 10,
+        padding: 15,
+        paddingTop: 30,
+        paddingBottom: 30,
+        backgroundColor: 'white'
+    },
+    screenHeader: {
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 36,
+        fontWeight: 'bold',
+    },
+    navLinksContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        rowGap: 5
+    },
+    navLinkContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderColor: 'black',
+        borderStyle: 'solid',
+        padding: 10,
+        paddingRight: 0,
+        paddingLeft: 0
+    },
+    navLinkText: {
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 20,
+        fontWeight: 'bold',
+    }
+})
+
+export const ProfileStyles = StyleSheet.create({
+    screenContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        padding: 15,
+        paddingTop: 30,
+        backgroundColor: 'white'
+    },
+    screenHeaderContainer: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row',
+        columnGap: 10
+    },
+    screenHeader: {
+        textAlign:  'left',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 36,
+        fontWeight: 'bold',
+    },
+    profileInfoContainer: {
+        width: '100%',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 20
+    },
+    profileInfoWrapper: {
+        width: "80%",
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        rowGap: 10,
+        borderWidth: 2,
+        borderRadius: 10,
+        borderColor: 'black',
+        borderStyle: 'dashed'
+    },
+    profileItemGroup: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'column',
+        rowGap: 10,
+        width: '100%',
+    },
+    profileItemLabel: {
+        fontFamily: 'Poppins_100Thin',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    profileItemValue: {
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 14,
+        fontWeight: 'normal',
     }
 })

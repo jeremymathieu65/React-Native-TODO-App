@@ -1,4 +1,5 @@
 import React, {useState, useContext, createContext, useEffect} from 'react';
+import { ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserContext = createContext({})
@@ -9,13 +10,13 @@ function UserContextProvider({children}) {
 
     const loadDataFromLS = async () => {
         try {
-            const users = await AsyncStorage.getItem('users');
-            const loggedUser = await AsyncStorage.getItem('loggedUser');
+            const usersJSON = await AsyncStorage.getItem('users');
+            const loggedUserJSON = await AsyncStorage.getItem('loggedUser');
             if (users !== null) {
-                setUsers([...JSON.parse(users)])
+                setUsers([...JSON.parse(usersJSON)])
             }
             if (loggedUser !== null) {
-                setLoggedUser({...JSON.parse(loggedUser)})
+                setLoggedUser({...JSON.parse(loggedUserJSON)})
             }
         } catch (e) {
             return {status: 500, message: 'Unable to read data from Local Storage'}
@@ -32,6 +33,12 @@ function UserContextProvider({children}) {
             return {status: 500, message: 'Unable to save data to Local Storage'}
         }
     }
+
+    const logoutUser = () => {
+        setLoggedUser({})
+        ToastAndroid.show("Logged Out Successfully!", ToastAndroid.SHORT)
+        return;
+    }
     
     const authenticateUser = (userObj) => {
         var email = userObj.email
@@ -41,7 +48,7 @@ function UserContextProvider({children}) {
             if (users[i].email === email) {
                 if (users[i].passwd === passwd) { 
                     authenticated = true;
-                    setLoggedUser({...users[i]})
+                    setLoggedUser({...users[i], index: i})
                     break;
                 }
                 else {
@@ -50,15 +57,16 @@ function UserContextProvider({children}) {
             }
         }
         if (authenticated) {
-            return {status: 200, message: 'Authorization Successful'}
+            return {status: 200, message: 'Authorization Successful!'}
         }
         else {
             return {status: 404, message: 'Your email is not registered'}
         }
     }
-    
+
     const addNewUser = (userObj) => {
         userObj.list = []
+        userObj.creationDate = new Date().toDateString()
         var email = userObj.email
         for (let i = 0; i < users.length; i++) {
             if (users[i].email === email) {
@@ -66,21 +74,21 @@ function UserContextProvider({children}) {
             }
         }
         setUsers([...users, userObj])
-        var resp = saveDataToLS()
-        if (resp.status === 500) {
-            return resp
-        }
-        else {
-            return {status: 200, message: 'User Registered Successfully'}
-        }
+        return {status: 200, message: 'Registered Successfully!'}
     }
     
     const deleteUser = (email) => {
         //TODO
     }
     
-    const modifyUser = (email) => {
-        //TODO
+    const modifyUser = (newVal, key) => {
+        var currUser = loggedUser
+        var userList = users
+        currUser[key] = newVal
+        userList[currUser.index][key] = newVal
+        setLoggedUser({...currUser})
+        setUsers([...userList])
+        return {status: 200, message: "User details updated successfully!"}
     }
     
     const addNewTask = (taskObj) => {
@@ -98,6 +106,7 @@ function UserContextProvider({children}) {
     const value = {
         loadDataFromLS,
         saveDataToLS,
+        logoutUser,
         authenticateUser,
         addNewUser,
         deleteUser,
@@ -114,6 +123,10 @@ function UserContextProvider({children}) {
     useEffect(() => {
         loadDataFromLS()
     }, [])
+
+    useEffect(() => {
+        saveDataToLS()
+    }, [users, loggedUser])
   
     return (
         <UserContext.Provider value={value}>
