@@ -18,6 +18,10 @@ function ListNavigator() {
         var currInput = modalInput
         if (currInput.title !== "") {
             addNewTask(currInput)
+            setModalInput({
+                title: "",
+                description: ""
+            })
             setShowAddModal(false)
         }
         else {
@@ -71,11 +75,11 @@ function ListNavigator() {
             </View>
             <View style={styles.toDoTasksContainer}>
                 <Text style={styles.toDoTasksHeader}>To-Do:</Text>
-                <ScrollView style={styles.toDoTasksScrollWrapper} contentContainerStyle={{rowGap: 10}}>
+                <ScrollView keyboardShouldPersistTaps="always" style={styles.toDoTasksScrollWrapper} contentContainerStyle={{rowGap: 10}}>
                     <TaskSnippet />
                 </ScrollView>
                 <Text style={styles.toDoTasksHeader}>Completed:</Text>
-                <ScrollView style={styles.toDoTasksScrollWrapper} contentContainerStyle={{rowGap: 10}}>
+                <ScrollView keyboardShouldPersistTaps="always" style={styles.toDoTasksScrollWrapper} contentContainerStyle={{rowGap: 10}}>
                     <TaskSnippet completed={true} />
                 </ScrollView>
             </View>

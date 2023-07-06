@@ -1,4 +1,4 @@
-import React, {useState, useContext, createContext, useEffect} from 'react';
+import React, {useState, useContext, createContext, useEffect, useRef} from 'react';
 import { ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,15 +7,20 @@ export const UserContext = createContext({})
 function UserContextProvider({children}) {
     const [loggedUser, setLoggedUser] = useState({})
     const [users, setUsers] = useState([])
+    const [updateCount, setUpdateCount] = useState(0)
+    const currUser = useRef({})
+    const userList = useRef([])
 
     const loadDataFromLS = async () => {
         try {
             const usersJSON = await AsyncStorage.getItem('users');
             const loggedUserJSON = await AsyncStorage.getItem('loggedUser');
             if (usersJSON !== null) {
+                userList.current = [...JSON.parse(usersJSON)]
                 setUsers([...JSON.parse(usersJSON)])
             }
             if (loggedUserJSON !== null) {
+                currUser.current = {...JSON.parse(loggedUserJSON)}
                 setLoggedUser({...JSON.parse(loggedUserJSON)})
             }
         } catch (e) {
@@ -36,8 +41,9 @@ function UserContextProvider({children}) {
 
     const logoutUser = () => {
         setLoggedUser({})
+        setUpdateCount(updateCount + 1)
         ToastAndroid.show("Logged Out Successfully!", ToastAndroid.SHORT)
-        return;
+        return null;
     }
     
     const authenticateUser = (userObj) => {
@@ -49,6 +55,7 @@ function UserContextProvider({children}) {
                 if (users[i].passwd === passwd) { 
                     authenticated = true;
                     setLoggedUser({...users[i], index: i})
+                    setUpdateCount(updateCount + 1)
                     break;
                 }
                 else {
@@ -74,6 +81,7 @@ function UserContextProvider({children}) {
             }
         }
         setUsers([...users, userObj])
+        setUpdateCount(updateCount + 1)
         return {status: 200, message: 'Registered Successfully!'}
     }
     
@@ -85,8 +93,9 @@ function UserContextProvider({children}) {
         else { userList.splice(index, index) }
         setLoggedUser({})
         setUsers([...userList])
+        setUpdateCount(updateCount + 1)
         ToastAndroid.show("Account Deleted Successfully!", ToastAndroid.SHORT)
-        return;
+        return null;
     }
     
     const modifyUser = (newVal, key) => {
@@ -96,51 +105,63 @@ function UserContextProvider({children}) {
         userList[currUser.index][key] = newVal
         setLoggedUser({...currUser})
         setUsers([...userList])
+        setUpdateCount(updateCount + 1)
         return {status: 200, message: "User details updated successfully!"}
     }
     
     const addNewTask = (taskObj) => {
-        var currUser = loggedUser
-        var userList = users
         taskObj.isCompleted = false;
-        taskObj.index = currUser.list.length
-        currUser.list.push({...taskObj})
-        userList[currUser.index].list.push(taskObj)
-        setLoggedUser({...currUser})
-        setUsers([...userList])
+        taskObj.index = currUser.current.list.length
+        currUser.current.list.push({...taskObj})
+        userList.current[currUser.current.index] = currUser.current
+        setLoggedUser({...currUser.current})
+        setUsers([...userList.current])
+        setUpdateCount(updateCount + 1)
         ToastAndroid.show("Item added successfully!", ToastAndroid.SHORT)
-        return
+        return null;
     }
     
     const deleteTask = (taskId) => {
-        var currUser = loggedUser
-        var userList = users
-        var taskList = currUser.list
+        var taskList = currUser.current.list
         if (taskId === 0) { taskList.shift() }
         else if (taskId === taskList.length - 1) { taskList.pop() }
-        else { taskList.splice(index, index) }
+        else { taskList.splice(taskId, taskId) }
         for (let i = 0; i < taskList.length; i++) {
             taskList[i].index = i
         }
-        currUser.list = taskList
-        userList[currUser.index] = currUser
-        setLoggedUser({...currUser})
-        setUsers([...userList])
+        currUser.current.list = taskList
+        userList.current[currUser.current.index] = currUser.current
+        setLoggedUser({...currUser.current})
+        setUsers([...userList.current])
+        setUpdateCount(updateCount + 1)
         ToastAndroid.show("Item deleted successfully!", ToastAndroid.SHORT)
-        return;
+        return null;
     }
     
-    const modifyTask = (taskId, key, newVal) => {
-        var currUser = loggedUser
-        var userList = users
-        var taskObj = currUser.list[taskId]
-        taskObj[key] = newVal
-        currUser.list[taskId] = taskObj
-        userList[currUser.index] = currUser
-        setLoggedUser({...currUser})
-        setUsers([...userList])
+    const completeTask = (taskId) => {
+        var taskObj = currUser.current.list[taskId]
+        taskObj['isCompleted'] = true
+        currUser.current.list[taskId] = taskObj
+        userList.current[currUser.current.index] = currUser.current
+        setLoggedUser({...currUser.current})
+        setUsers([...userList.current])
+        setUpdateCount(updateCount + 1)
         ToastAndroid.show("Great Work!", ToastAndroid.SHORT)
-        return
+        return null
+    }
+
+    const modifyTask = (taskId, newDetails) => {
+        var { title, description } = newDetails
+        var taskObj = currUser.current.list[taskId]
+        taskObj.title = title
+        taskObj.description = description
+        currUser.current.list[taskId] = taskObj
+        userList.current[currUser.current.index] = currUser.current
+        setLoggedUser({...currUser.current})
+        setUsers([...userList.current])
+        setUpdateCount(updateCount + 1)
+        ToastAndroid.show("Item details updated Successfully!", ToastAndroid.SHORT)
+        return null
     }
 
     const getTaskLength = () => {
@@ -163,11 +184,14 @@ function UserContextProvider({children}) {
         addNewTask,
         deleteTask,
         modifyTask,
+        completeTask,
         getTaskLength,
+        updateCount,
         loggedUser,
         users,
         setUsers,
-        setLoggedUser
+        setLoggedUser,
+        setUpdateCount
     }
 
     useEffect(() => {
@@ -175,8 +199,10 @@ function UserContextProvider({children}) {
     }, [])
 
     useEffect(() => {
+        currUser.current = loggedUser
+        userList.current = users
         saveDataToLS()
-    }, [users, loggedUser])
+    }, [updateCount])
   
     return (
         <UserContext.Provider value={value}>

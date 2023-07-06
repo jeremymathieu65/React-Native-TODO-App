@@ -405,7 +405,7 @@ export const ListStyles = StyleSheet.create({
         borderRadius: 10,
         padding: 5,
         paddingLeft: 10,
-        flexShrink: 3
+        flexShrink: 3,
     },
     modalCnfrmContainer: {
         width: '100%',

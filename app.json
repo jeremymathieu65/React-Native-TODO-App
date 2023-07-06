@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "practice-app",
-    "slug": "practice-app",
+    "name": "To-Do List",
+    "slug": "to-do-list",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/SplashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jeremymathieu65.todolist"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#f5f5f5"
+      },
+      "package": "com.jeremymathieu65.todolist"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b552717b-6a75-4b8b-a697-25dc1a918d54"
+      }
+    },
+    "owner": "jeremymathieu65"
   }
 }
